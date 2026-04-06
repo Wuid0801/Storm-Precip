@@ -487,6 +487,12 @@ input {
     min-height: 70vh;
   }
 
+  .spectrum,
+  .history-scene,
+  .system-panel {
+    grid-area: hero;
+  }
+
   .status-panel {
     grid-area: status;
     min-height: auto;

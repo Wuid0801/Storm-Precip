@@ -755,12 +755,13 @@ input {
 }
 
 .spectrum__graph {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   width: 100%;
   min-width: 0;
-  min-height: clamp(200px, 36vmin, 480px);
-  max-height: min(80vh, 920px);
+  /* 너비에 맞춘 16:9; 부모 flex에서 세로로 늘어나지 않음 */
   aspect-ratio: 16 / 9;
+  max-height: min(56vh, 640px);
+  min-height: clamp(160px, 28vmin, 360px);
   border: 1px solid rgba(180, 200, 240, 0.12);
   padding: clamp(12px, 2.5vw, 20px);
   display: flex;

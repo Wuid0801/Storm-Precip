@@ -3,18 +3,18 @@
   flex-direction: column;
   min-height: 0;
   align-self: stretch;
-  max-height: calc(100vh - 44px);
-  overflow: hidden;
+  max-height: none;
+  overflow: visible;
 }
 
 .history-scene__main {
   display: flex;
   flex-direction: column;
-  flex: 1 1 0;
+  flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
   padding: 54px 44px 36px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .history-scene__snapshot {
@@ -77,29 +77,13 @@
 }
 
 .history-scene__stream {
-  flex: 1 1 0;
+  flex: 0 1 auto;
   min-height: 0;
   margin-top: 28px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: visible;
   overflow-x: hidden;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-.history-scene__stream::-webkit-scrollbar {
-  width: 6px;
-}
-
-.history-scene__stream::-webkit-scrollbar-track {
-  background: rgba(12, 16, 24, 0.35);
-  border-radius: 999px;
-}
-
-.history-scene__stream::-webkit-scrollbar-thumb {
-  background: rgba(156, 181, 220, 0.28);
-  border-radius: 999px;
 }
 
 .history-log-row {
@@ -230,10 +214,6 @@
 }
 
 @media (max-width: 900px) {
-  .history-scene {
-    max-height: calc(100vh - 28px);
-  }
-
   .history-scene__main {
     padding: 32px 24px 28px;
   }

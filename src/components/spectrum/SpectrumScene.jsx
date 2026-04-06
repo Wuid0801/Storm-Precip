@@ -40,16 +40,19 @@ const SpectrumScene = memo(function SpectrumScene() {
     let height = 0;
     let animationFrame = 0;
 
+    canvas.style.removeProperty('width');
+    canvas.style.removeProperty('height');
+
     const resize = () => {
       const rect = graphEl.getBoundingClientRect();
-      width = Math.max(120, Math.floor(rect.width));
-      height = Math.max(100, Math.floor(rect.height));
+      const w = graphEl.clientWidth || rect.width;
+      const h = graphEl.clientHeight || rect.height;
+      width = Math.max(120, Math.floor(w));
+      height = Math.max(100, Math.floor(h));
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 

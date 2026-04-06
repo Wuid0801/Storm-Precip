@@ -9,6 +9,9 @@ const RainCanvas = memo(function RainCanvas({ configRef }) {
     const context = canvas?.getContext('2d');
     if (!canvas || !context) return undefined;
 
+    canvas.style.removeProperty('width');
+    canvas.style.removeProperty('height');
+
     let animationFrame = 0;
     let width = 0;
     let height = 0;
@@ -87,14 +90,15 @@ const RainCanvas = memo(function RainCanvas({ configRef }) {
     };
 
     const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      const w = canvas.clientWidth || rect.width;
+      const h = canvas.clientHeight || rect.height;
+      width = Math.max(1, Math.round(w));
+      height = Math.max(1, Math.round(h));
       devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
       canvas.width = width * devicePixelRatio;
       canvas.height = height * devicePixelRatio;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
       context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
 
       createRaindrops();
@@ -249,13 +253,26 @@ const RainCanvas = memo(function RainCanvas({ configRef }) {
 
     resize();
     render();
-    window.addEventListener('resize', resize);
+
+    const onWindowResize = () => {
+      resize();
+    };
+    window.addEventListener('resize', onWindowResize);
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        resize();
+      });
+      resizeObserver.observe(canvas);
+    }
 
     return () => {
       cancelAnimationFrame(animationFrame);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onWindowResize);
+      resizeObserver?.disconnect();
     };
-  }, [configRef]);
+  }, [configRef, activeView]);
 
   return <canvas ref={canvasRef} className="rain-canvas" aria-hidden="true" />;
 });

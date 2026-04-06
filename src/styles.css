@@ -456,14 +456,30 @@ input {
 
 @media (max-width: 1180px) {
   .frame {
-    grid-template-columns: minmax(64px, 72px) 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      'left hero'
-      'left status';
+      'left'
+      'hero'
+      'status';
   }
 
   .left-rail {
     grid-area: left;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .left-rail__nav {
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .rail-link {
+    writing-mode: horizontal-tb;
   }
 
   .hero {
@@ -506,30 +522,7 @@ input {
 
 @media (max-width: 720px) {
   .frame {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'left'
-      'hero'
-      'status';
     padding: 14px;
-  }
-
-  .left-rail {
-    flex-direction: row;
-    align-items: center;
-    gap: 18px;
-    padding: 16px;
-  }
-
-  .left-rail__nav {
-    flex: 1;
-    flex-direction: row;
-    justify-content: center;
-    gap: 16px;
-  }
-
-  .rail-link {
-    writing-mode: horizontal-tb;
   }
 
   .hero,

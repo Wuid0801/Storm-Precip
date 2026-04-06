@@ -44,7 +44,7 @@ const HistoryScene = memo(function HistoryScene() {
       return;
     }
 
-    setSelectedIndex(entries.length - 1);
+    setSelectedIndex(0);
   }, [entries.length]);
 
   useEffect(() => {

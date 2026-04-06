@@ -249,10 +249,13 @@ export function useEnvironmentHistory() {
   const entries = useMemo(() => {
     if (!history.length) return [];
 
-    return history.map((entry, index, array) => ({
+    const chronological = history.map((entry, index, array) => ({
       ...entry,
       point: array.length === 1 ? 0.5 : index / (array.length - 1),
     }));
+
+    // 목록은 최신이 위로 오도록 역순 (타임라인 point는 과거→미래 축 유지)
+    return chronological.slice().reverse();
   }, [history]);
 
   return {
